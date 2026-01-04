@@ -1,0 +1,26 @@
+# render.yaml — BeautyMag Updater: Deployment & Governance Config
+
+services:
+  - type: web
+    name: beautymag-updater
+    env: node
+    plan: free
+    region: oregon            # (use frankfurt if you're in Europe)
+    buildCommand: "npm install"
+    startCommand: "node update-products.js"
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_KEY
+        sync: false   # set manually in Render dashboard for security
+      - key: LOG_LEVEL
+        value: info
+      - key: ENABLE_ALERTS
+        value: true
+    headers:
+      - key: Access-Control-Allow-Origin
+        value: "*"
+
