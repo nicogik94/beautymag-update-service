@@ -1,73 +1,62 @@
+// update-products.js
 import express from "express";
 import fileUpload from "express-fileupload";
 import fs from "fs";
-import mammoth from "mammoth";
+import path from "path";
 
 const app = express();
 app.use(fileUpload());
 
-const PAYLOAD_PATH = "./PRODUCTS_PAYLOAD.json";
-const BRAND_TOKENS = [
-  "L’Oréal", "L'Oreal", "Elvive", "True Match", "Age Perfect", "Revitalift"
-];
+// simple root for quick checks
+app.get("/", (req, res) => {
+  res.send("✨ BeautyMag Updater service is running.");
+});
 
-const loadPayload = () => {
-  try { return JSON.parse(fs.readFileSync(PAYLOAD_PATH, "utf-8")); }
-  catch { console.warn("⚠️ No existing payload found, creating a new one."); return []; }
-};
+// health check endpoint
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", service: "beautymag-updater" });
+});
 
-const savePayload = (data) => {
-  fs.writeFileSync(PAYLOAD_PATH, JSON.stringify(data, null, 2), "utf-8");
-};
-
-const slugify = (text) => text
-  .toLowerCase()
-  .normalize("NFD")
-  .replace(/[\u0300-\u036f]/g, "")
-  .replace(/[^a-z0-9]+/g, "-")
-  .replace(/(^-|-$)/g, "");
-
+// main endpoint
 app.post("/update-products", async (req, res) => {
   try {
-    if (!req.files || !req.files.brief_file)
-      return res.status(400).json({ error: "No .docx file provided." });
+    const key = req.headers["x-api-key"];
+    if (process.env.API_KEY && key !== process.env.API_KEY) {
+      return res.status(403).json({ error: "Forbidden: invalid API key" });
+    }
 
-    const buffer = req.files.brief_file.data;
-    const { value: text } = await mammoth.extractRawText({ buffer });
+    if (!req.files || !req.files.brief_file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
 
-    const existingPayload = loadPayload();
-    const regex = new RegExp(`(${BRAND_TOKENS.join("|")})[^.,\\n]+`, "gi");
-    const matches = text.match(regex) || [];
+    const briefFile = req.files.brief_file;
+    const uploadPath = path.join("/tmp", briefFile.name);
+    await briefFile.mv(uploadPath);
 
-    const newProducts = matches.map((name) => {
-      const cleanName = name.trim();
-      return {
-        name: cleanName,
-        url: `https://www.lorealparisusa.com/${slugify(cleanName)}`,
-        sku: `AUTO-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
-      };
-    });
-
-    const merged = [
-      ...existingPayload.filter(p =>
-        !newProducts.find(n => n.name.toLowerCase() === p.name.toLowerCase())),
-      ...newProducts
+    // --- Replace this block with real parsing logic if desired ---
+    const newPayload = [
+      {
+        name: briefFile.name,
+        uploaded_at: new Date().toISOString(),
+      },
     ];
+    // --------------------------------------------------------------
 
-    savePayload(merged);
-    console.log(`✅ Updated payload with ${newProducts.length} new products.`);
+    const payloadPath = path.join(process.cwd(), "PRODUCTS_PAYLOAD.json");
+    fs.writeFileSync(payloadPath, JSON.stringify(newPayload, null, 2));
+
     res.json({
       message: "✅ PRODUCTS_PAYLOAD.json updated successfully.",
-      added_count: newProducts.length,
-      updated_payload: merged
+      added_count: newPayload.length,
+      updated_payload: newPayload,
     });
   } catch (err) {
-    console.error("❌ Update failed:", err);
-    res.status(500).json({ error: "Failed to process or update payload." });
+    console.error("❌ Error updating products:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () =>
-  console.log(`🚀 BeautyMag update-products service running on port ${PORT}`)
-
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`🚀 BeautyMag update-products service running on port ${10000}`);
+});
