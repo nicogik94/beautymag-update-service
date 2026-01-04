@@ -1,23 +1,3 @@
-// update-products.js
-import express from "express";
-import fileUpload from "express-fileupload";
-import fs from "fs";
-import path from "path";
-
-const app = express();
-app.use(fileUpload());
-
-// simple root for quick checks
-app.get("/", (req, res) => {
-  res.send("✨ BeautyMag Updater service is running.");
-});
-
-// health check endpoint
-app.get("/health", (req, res) => {
-  res.json({ status: "ok", service: "beautymag-updater" });
-});
-
-// main endpoint
 app.post("/update-products", async (req, res) => {
   try {
     const key = req.headers["x-api-key"];
@@ -30,17 +10,37 @@ app.post("/update-products", async (req, res) => {
     }
 
     const briefFile = req.files.brief_file;
+    const ext = path.extname(briefFile.name).toLowerCase();
+
+    if (ext !== ".docx" && ext !== ".csv") {
+      return res.status(400).json({ error: "Invalid file type. Only .docx or .csv are allowed." });
+    }
+
     const uploadPath = path.join("/tmp", briefFile.name);
     await briefFile.mv(uploadPath);
 
-    // --- Replace this block with real parsing logic if desired ---
-    const newPayload = [
-      {
-        name: briefFile.name,
-        uploaded_at: new Date().toISOString(),
-      },
-    ];
-    // --------------------------------------------------------------
+    let newPayload = [];
+
+    if (ext === ".csv") {
+      // parse CSV
+      const csvData = fs.readFileSync(uploadPath, "utf8");
+      const rows = csvData.split("\n").filter(Boolean);
+      const headers = rows.shift().split(",");
+      newPayload = rows.map((row) => {
+        const values = row.split(",");
+        const entry = {};
+        headers.forEach((h, i) => (entry[h.trim()] = values[i]?.trim() || ""));
+        return entry;
+      });
+    } else {
+      // DOCX handling stub
+      newPayload = [
+        {
+          name: briefFile.name,
+          uploaded_at: new Date().toISOString(),
+        },
+      ];
+    }
 
     const payloadPath = path.join(process.cwd(), "PRODUCTS_PAYLOAD.json");
     fs.writeFileSync(payloadPath, JSON.stringify(newPayload, null, 2));
@@ -54,9 +54,4 @@ app.post("/update-products", async (req, res) => {
     console.error("❌ Error updating products:", err);
     res.status(500).json({ error: err.message });
   }
-});
-
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-  console.log(`🚀 BeautyMag update-products service running on port ${PORT}`);
 });
