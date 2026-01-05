@@ -252,3 +252,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`🚀 BeautyMag service running on port ${PORT}`);
 });
+// force redeploy domingo,  4 de enero de 2026, 19:16:38 CST
