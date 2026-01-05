@@ -253,3 +253,4 @@ app.listen(PORT, () => {
   console.log(`🚀 BeautyMag service running on port ${PORT}`);
 });
 // force redeploy domingo,  4 de enero de 2026, 19:16:38 CST
+// force redeploy domingo,  4 de enero de 2026, 19:21:30 CST
