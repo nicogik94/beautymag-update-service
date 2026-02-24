@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florence SC Expansion Blueprint | First Choice Heating & Air</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fdfbf7; color: #1f2937; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; height: 300px; margin: 0 auto; }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); }
+        .active-tab { border-bottom: 2px solid #0ea5e9; color: #0ea5e9; font-weight: 600; }
+        .inactive-tab { color: #6b7280; }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* AI Tool Styling */
+        .ai-gradient { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); }
+        .loading-spinner {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 2px solid #fff;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals (Stone/Off-White) with HVAC Blue and Alert Red accents. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-stone-50 min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-stone-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center gap-2">
+                        <span class="text-2xl text-blue-600 font-bold">❄️ First Choice</span>
+                        <span class="text-sm text-stone-500 hidden sm:block">| Expansion Blueprint</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="scrollToSection('dashboard')" class="text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Overview</button>
+                    <button onclick="scrollToSection('market')" class="text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium text-xs sm:text-sm">Market</button>
+                    <button onclick="scrollToSection('ai-strategy')" class="text-blue-600 font-bold px-3 py-2 rounded-md text-sm">✨ AI Center</button>
+                    <button onclick="scrollToSection('strategy')" class="text-stone-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Strategy</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full space-y-12">
+
+        <!-- Section 1: Executive Summary / The Paradox -->
+        <section id="dashboard" class="fade-in">
+            <div class="mb-6">
+                <h1 class="text-3xl font-bold text-gray-900">The Florence Paradox</h1>
+                <p class="mt-2 text-lg text-gray-600 max-w-3xl">
+                    Florence presents a massive economic opportunity masked by a critical branding risk. 
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white overflow-hidden shadow rounded-lg border-l-4 border-blue-500 p-5">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Addressable Market</dt>
+                        <dd class="text-2xl font-bold text-gray-900">35,700</dd>
+                    </dl>
+                </div>
+                <div class="bg-white overflow-hidden shadow rounded-lg border-l-4 border-green-500 p-5">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Rebate Potential</dt>
+                        <dd class="text-2xl font-bold text-gray-900">$8,000</dd>
+                    </dl>
+                </div>
+                <div class="bg-white overflow-hidden shadow rounded-lg border-l-4 border-yellow-500 p-5">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Median Home Age</dt>
+                        <dd class="text-2xl font-bold text-gray-900">44 Years</dd>
+                    </dl>
+                </div>
+                <div class="bg-white overflow-hidden shadow rounded-lg border-l-4 border-red-500 p-5">
+                    <dl>
+                        <dt class="text-sm font-medium text-gray-500 truncate">Brand Risk</dt>
+                        <dd class="text-xl font-bold text-gray-900">High</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-bold text-red-800 mb-2 text-sm sm:text-lg">🚨 Critical Brand Collision Warning</h3>
+                <p class="text-red-700 text-sm sm:text-base">
+                    Your competitor, <strong>1st Choice Quality Heating, Air, & Plumbing</strong>, is already active. 
+                    Without a specific DBA, your marketing spend will accidentally benefit them.
+                </p>
+            </div>
+        </section>
+
+        <!-- ✨ AI STRATEGY CENTER -->
+        <section id="ai-strategy" class="fade-in">
+            <div class="bg-white rounded-xl shadow-xl border border-blue-100 overflow-hidden">
+                <div class="ai-gradient p-6 text-white">
+                    <h2 class="text-2xl font-bold flex items-center gap-2">
+                        ✨ Elite Copywriter Suite
+                    </h2>
+                    <p class="text-blue-100 mt-1">Agency-level LLM tools. Generate direct-response copy, multi-variant ads, and competitor takedowns.</p>
+                </div>
+                
+                <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Tool 1: Multi-Variant Ad Matrix -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-900 border-b pb-2">✨ Multi-Variant Ad Matrix</h3>
+                        <p class="text-xs text-gray-500">Generates 3 psychological angles (Emotional, Logical, Urgency) for split testing.</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Select Persona</label>
+                            <select id="ai-persona" class="w-full border rounded-md p-2 text-sm">
+                                <option value="Rebate Rachel">Rebate Rachel (Cost-Conscious)</option>
+                                <option value="Emergency Eddie">Emergency Eddie (High-Urgency)</option>
+                                <option value="Allergy Alice">Allergy Alice (Health/IAQ)</option>
+                                <option value="Builder Bob">Builder Bob (New Construction)</option>
+                            </select>
+                        </div>
+                        <button onclick="generateAdCopy()" id="ad-btn" class="w-full bg-blue-600 text-white font-bold py-2 rounded-md hover:bg-blue-700 transition">
+                            Generate ✨ Ad Matrix
+                        </button>
+                        <div id="ad-output" class="text-xs bg-stone-50 p-3 rounded border text-gray-800 h-48 overflow-y-auto prose-sm">
+                            Results will appear here...
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Competitor Exploit Engine -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-900 border-b pb-2">✨ Competitor Exploit Engine</h3>
+                        <p class="text-xs text-gray-500">Subtly weaponize competitors' weaknesses identified in the report.</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Target Competitor</label>
+                            <select id="ai-competitor" class="w-full border rounded-md p-2 text-sm">
+                                <option value="One Hour Heating & Air|Franchise structure, commission-breath technicians, impersonal service">One Hour H&A (Franchise Upselling)</option>
+                                <option value="1st Choice Quality Manning|Located 60 miles away, delayed response times, scheduling chaos">1st Choice Manning (60-Mile Distance)</option>
+                                <option value="Quality Service Co|Closed on weekends, lacks premium Lennox brand prestige">Quality Service Co (Closed Weekends)</option>
+                            </select>
+                        </div>
+                        <button onclick="exploitCompetitor()" id="exploit-btn" class="w-full bg-red-600 text-white font-bold py-2 rounded-md hover:bg-red-700 transition mt-[0.35rem]">
+                            Draft ✨ Exploit Copy
+                        </button>
+                        <div id="exploit-output" class="text-xs bg-stone-50 p-3 rounded border text-gray-800 h-48 overflow-y-auto prose-sm">
+                            Devastating positioning copy will appear here...
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: Landing Page Architect -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-900 border-b pb-2">✨ Landing Page Architect</h3>
+                        <p class="text-xs text-gray-500">Generate high-converting funnel wireframes without hiring a copywriter.</p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Page Objective</label>
+                            <select id="ai-lp-objective" class="w-full border rounded-md p-2 text-sm">
+                                <option value="Claim Up To $8,000 in Duke Energy Heat Pump Rebates">Duke Energy Rebate Capture</option>
+                                <option value="Book a Free Whole-Home Indoor Air Quality Test">IAQ Testing Lead Gen</option>
+                                <option value="Emergency 24/7 Same-Day AC Repair">Emergency AC Repair</option>
+                            </select>
+                        </div>
+                        <button onclick="generateLandingPage()" id="lp-btn" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-md hover:bg-indigo-700 transition mt-[0.35rem]">
+                            Build ✨ Page Copy
+                        </button>
+                        <div id="lp-output" class="text-xs bg-stone-50 p-3 rounded border text-gray-800 h-48 overflow-y-auto prose-sm">
+                            Wireframe copy will appear here...
+                        </div>
+                    </div>
+
+                    <!-- Tool 4: Direct Response Email Drafter -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-900 border-b pb-2">✨ DR Email Drafter</h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">CRM Segment & Framework</label>
+                            <select id="ai-email-framework" class="w-full border rounded-md p-2 text-sm mb-2">
+                                <option value="PAS (Problem, Agitate, Solution)">Framework: PAS</option>
+                                <option value="AIDA (Attention, Interest, Desire, Action)">Framework: AIDA</option>
+                                <option value="Story-Lead (Personal anecdote to pitch)">Framework: Story-Lead</option>
+                            </select>
+                            <select id="ai-segment" class="w-full border rounded-md p-2 text-sm">
+                                <option value="SEG-03: Active Member (Maintenance)">Target: Active Members</option>
+                                <option value="SEG-01: High-Value Install">Target: Past Install Customers</option>
+                                <option value="SEG-04: Demand-Only (Break-Fix)">Target: 1-Time Emergency Callers</option>
+                            </select>
+                        </div>
+                        <button onclick="draftEmailCampaign()" id="email-btn" class="w-full bg-purple-600 text-white font-bold py-2 rounded-md hover:bg-purple-700 transition mt-1">
+                            Draft ✨ DR Email
+                        </button>
+                        <div id="email-output" class="text-xs bg-stone-50 p-3 rounded border text-gray-800 h-48 overflow-y-auto prose-sm">
+                            Email copy will appear here...
+                        </div>
+                    </div>
+
+                    <!-- Tool 5: Nextdoor Ground Game -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-900 border-b pb-2">✨ Nextdoor Ground Game</h3>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Post Topic</label>
+                            <select id="ai-nextdoor-topic" class="w-full border rounded-md p-2 text-sm mb-2">
+                                <option value="High Utility Bills & Rebates">High Utility Bills & Rebates</option>
+                                <option value="Spring Pollen & Air Quality">Spring Pollen & Air Quality</option>
+                                <option value="Community Introduction / Local Owner">Community Intro / Local Owner</option>
+                            </select>
+                            <input id="ai-neighbor" type="text" placeholder="Neighborhood (e.g. Forest Lake)" class="w-full border rounded-md p-2 text-sm">
+                        </div>
+                        <button onclick="generateNextdoorPost()" id="nextdoor-btn" class="w-full bg-orange-500 text-white font-bold py-2 rounded-md hover:bg-orange-600 transition mt-1">
+                            Draft ✨ Nextdoor Post
+                        </button>
+                        <div id="nextdoor-output" class="text-xs bg-stone-50 p-3 rounded border text-gray-800 h-48 overflow-y-auto prose-sm">
+                            Results will appear here...
+                        </div>
+                    </div>
+
+                    <!-- Tool 6: Identity Brainstormer -->
+                    <div class="space-y-4">
+                        <h3 class="font-bold text-gray-900 border-b pb-2">✨ Identity Brainstormer</h3>
+                        <p class="text-xs text-gray-500">Solve the "1st Choice Quality" collision by generating unique Florence-specific DBAs.</p>
+                        <button onclick="brainstormBrand()" id="brand-btn" class="w-full bg-teal-600 text-white font-bold py-2 rounded-md hover:bg-teal-700 transition mt-[3.15rem]">
+                            Brainstorm ✨ Names
+                        </button>
+                        <div id="brand-output" class="text-xs bg-stone-50 p-3 rounded border text-gray-800 h-48 overflow-y-auto prose-sm">
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li>Select "Brainstorm" to begin.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Market Intelligence Charts -->
+        <section id="market" class="bg-white rounded-xl shadow-sm p-6 sm:p-8 fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Market Intelligence & Economic Context</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-stone-50 rounded-lg p-4 border border-stone-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Monthly Electricity Cost ($)</h3>
+                    <div class="chart-container">
+                        <canvas id="utilityChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-stone-50 rounded-lg p-4 border border-stone-200">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Housing Stock Replacement Prime</h3>
+                    <div class="chart-container">
+                        <canvas id="housingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: CRM Segmentation -->
+        <section class="bg-white rounded-xl shadow-sm p-6 sm:p-8 fade-in">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">CRM-Based Targeting</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <div class="lg:col-span-1">
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="segmentationChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div id="segment-detail" class="bg-stone-50 rounded-lg p-6 border border-stone-200">
+                        <h3 id="seg-title" class="text-xl font-bold text-gray-900">High-Value Install</h3>
+                        <p id="seg-strat" class="text-gray-700 mt-2">Leverage High LTV. 75% are members. These are your referrers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Master Strategy & Pre-Mortem -->
+        <section id="strategy" class="bg-stone-100 rounded-xl p-6 sm:p-8 fade-in">
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">🗺️ 12-Month Omnichannel Master Strategy</h2>
+            <p class="text-gray-600 mb-8">Marketing alone won't win Florence. This broader operational and partnership rollout is required to bypass entrenched competitors (One Hour H&A) and solve the geographical distance constraint (the "Aynor Lag").</p>
+
+            <!-- Phased Strategy Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Phase 1 -->
+                <div class="bg-white rounded-lg shadow-sm border-t-4 border-blue-500 p-6 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded font-bold">Phase 1</span>
+                        <h3 class="font-bold text-lg text-gray-900">The Beachhead</h3>
+                    </div>
+                    <p class="text-xs text-gray-500 font-semibold mb-4 uppercase tracking-wider">Months 1-3 • Brand & Ops</p>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">✓</span> <b>Brand Protection:</b> Register a "First Choice by Goude" DBA to prevent leads from leaking to the Manning competitor.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">✓</span> <b>Local Operations:</b> Hire 1-2 Florence-native lead technicians (Work-from-home dispatch) to guarantee 2-hour emergency response times.</li>
+                        <li class="flex items-start"><span class="text-blue-500 mr-2 font-bold">✓</span> <b>Digital Wedge:</b> Launch "Duke Energy Rebate" specific funnels to avoid bidding wars on highly competitive "AC Repair" PPC terms.</li>
+                    </ul>
+                </div>
+                
+                <!-- Phase 2 -->
+                <div class="bg-white rounded-lg shadow-sm border-t-4 border-orange-500 p-6 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded font-bold">Phase 2</span>
+                        <h3 class="font-bold text-lg text-gray-900">The Ground Game</h3>
+                    </div>
+                    <p class="text-xs text-gray-500 font-semibold mb-4 uppercase tracking-wider">Months 4-6 • B2B & Community</p>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-start"><span class="text-orange-500 mr-2 font-bold">✓</span> <b>Builder Pipeline:</b> Pitch Lennox bulk installations to D.R. Horton & Great Southern Homes (capitalizing on the 1,600+ new builds in the pipeline).</li>
+                        <li class="flex items-start"><span class="text-orange-500 mr-2 font-bold">✓</span> <b>HOA Infiltration:</b> Offer discounted "Neighborhood Maintenance Days" to premium HOAs like Forest Lake & Timrod Park.</li>
+                        <li class="flex items-start"><span class="text-orange-500 mr-2 font-bold">✓</span> <b>IAQ Push:</b> Launch free whole-home air quality tests specifically targeting the 9-month pollen allergy demographic.</li>
+                    </ul>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="bg-white rounded-lg shadow-sm border-t-4 border-green-500 p-6 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-bold">Phase 3</span>
+                        <h3 class="font-bold text-lg text-gray-900">The Flywheel</h3>
+                    </div>
+                    <p class="text-xs text-gray-500 font-semibold mb-4 uppercase tracking-wider">Months 7-12 • Scale & Dominate</p>
+                    <ul class="space-y-3 text-sm text-gray-700">
+                        <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span> <b>Micro-Warehouse:</b> Lease a small, secure parts/equipment locker in Florence to permanently eliminate the 60-mile "Aynor Lag" for parts runs.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span> <b>Retention:</b> Aggressively convert Phase 1's PPC break-fix customers into recurring annual Service Shield Members.</li>
+                        <li class="flex items-start"><span class="text-green-500 mr-2 font-bold">✓</span> <b>Referral Engine:</b> Launch a "Neighbor-to-Neighbor" referral program leveraging your Lennox Centurion status.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 mb-6 border-t border-stone-300 pt-8">Strategic Annex: The "Pre-Mortem"</h3>
+            <div class="space-y-4">
+                <details class="group bg-white rounded-lg shadow-sm border border-stone-200">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 font-medium">
+                        <span>Risk 1: Brand Confusion (The "Manning Leak")</span>
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="border-t p-4 bg-red-50 text-red-800">
+                        <p>Secure Florence-specific DBA. Use "Lennox Centurion" credentials to establish unique authority.</p>
+                    </div>
+                </details>
+                <details class="group bg-white rounded-lg shadow-sm border border-stone-200">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 font-medium">
+                        <span>Risk 2: The "Aynor Lag" Overhead</span>
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="border-t p-4 bg-red-50 text-red-800">
+                        <p>Dispatching from 60 miles away will destroy margins and response times. Must execute Phase 1 local hiring and Phase 3 micro-warehousing.</p>
+                    </div>
+                </details>
+                <details class="group bg-white rounded-lg shadow-sm border border-stone-200">
+                    <summary class="flex cursor-pointer items-center justify-between p-4 font-medium">
+                        <span>Risk 3: Digital Crushing by One Hour H&A</span>
+                        <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="border-t p-4 bg-red-50 text-red-800">
+                        <p>Trying to out-spend the 8k+ review gorilla on basic Search Ads will fail. You must win via the B2B builder pipeline, community ground game, and Duke Energy specific funnels.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs">
+            <p>First Choice Heating & Air — Expansion Blueprint | Feb 2026</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const apiKey = ""; // Environment provided key
+
+        // Utility: Exponential Backoff for Gemini API
+        async function callGemini(prompt, systemInstruction = "") {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await response.json();
+                    if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
+                        return data.candidates[0].content.parts[0].text;
+                    }
+                    throw new Error("Invalid API Response");
+                } catch (e) {
+                    if (i === 4) throw e;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // Elite Copywriter Persona
+        const elitePersona = `You are an elite, million-dollar direct response copywriter (in the style of Dan Kennedy, Gary Halbert, or David Ogilvy). 
+        Your goal is to write copy that absolutely obliterates the competition, commands attention, and drives immediate action. 
+        Use visceral language, proven psychological triggers (fear, greed, status, urgency), and flawless pacing. 
+        You MUST output your response in clean, readable HTML using tags like <strong>, <em>, <br>, <ul>, and <li> for formatting. Do not use markdown backticks.`;
+
+        // Tool 1: Multi-Variant Ad Matrix
+        async function generateAdCopy() {
+            const persona = document.getElementById('ai-persona').value;
+            const output = document.getElementById('ad-output');
+            const btn = document.getElementById('ad-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Generating...`;
+            output.innerHTML = "Consulting psychological frameworks...";
+
+            const prompt = `Write 3 distinct, highly persuasive Facebook Ad variants targeting the "${persona}" persona in Florence, SC for "First Choice Heating & Air". 
+            We are a Lennox Centurion dealer. 
+            Variant 1 (The Emotional Hook): Focus on visceral pain, fear, or frustration.
+            Variant 2 (The Logical Angle): Focus on undeniable ROI, Duke Energy rebates (up to $8k), and exact numbers.
+            Variant 3 (The Urgency Offer): Focus on speed, limited availability, and immediate action.
+            Format with clear HTML headings (<h3>) for each variant.`;
+
+            try {
+                const result = await callGemini(prompt, elitePersona);
+                output.innerHTML = result;
+            } catch (err) {
+                output.innerHTML = "Error generating ad matrix. Please try again.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Generate ✨ Ad Matrix";
+            }
+        }
+
+        // Tool 2: Competitor Exploit Engine
+        async function exploitCompetitor() {
+            const compData = document.getElementById('ai-competitor').value.split('|');
+            const compName = compData[0];
+            const compWeakness = compData[1];
+            const output = document.getElementById('exploit-output');
+            const btn = document.getElementById('exploit-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Drafting Takedown...`;
+            output.innerHTML = "Analyzing competitor vulnerabilities...";
+
+            const prompt = `Write a devastatingly effective, subtle piece of sales copy (for an ad or website section) that exploits this competitor's weakness without naming them directly. 
+            The competitor is "${compName}" and their fatal weakness is "${compWeakness}". 
+            Position "First Choice Heating & Air" (a family-owned, Lennox Centurion dealer based locally) as the undeniable, superior alternative. 
+            Twist the knife on the frustration the customer experiences with that weakness, then present us as the cure. Use HTML formatting.`;
+
+            try {
+                const result = await callGemini(prompt, elitePersona);
+                output.innerHTML = result;
+            } catch (err) {
+                output.innerHTML = "Error generating exploit copy.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Draft ✨ Exploit Copy";
+            }
+        }
+
+        // Tool 3: Landing Page Architect
+        async function generateLandingPage() {
+            const objective = document.getElementById('ai-lp-objective').value;
+            const output = document.getElementById('lp-output');
+            const btn = document.getElementById('lp-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Architecting...`;
+            output.innerHTML = "Building funnel wireframe...";
+
+            const prompt = `Act as an expert conversion rate optimizer. Write the complete, high-converting copy structure for a landing page. 
+            The objective is: "${objective}". 
+            Provide the following exact structure in HTML format:
+            <h3>1. The Hook (Headline)</h3> [Must be punchy and outcome-driven]
+            <h3>2. The Knife Twist (Sub-headline)</h3> [Agitate the primary pain point]
+            <h3>3. The Fascination Bullets</h3> [3 bullet points teasing the benefits/secrets]
+            <h3>4. The Risk Reversal</h3> [An iron-clad guarantee]
+            <h3>5. The Call to Action</h3> [Direct command to click/call]`;
+
+            try {
+                const result = await callGemini(prompt, elitePersona);
+                output.innerHTML = result;
+            } catch (err) {
+                output.innerHTML = "Error generating landing page copy.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Build ✨ Page Copy";
+            }
+        }
+
+        // Tool 4: DR Email Drafter
+        async function draftEmailCampaign() {
+            const segment = document.getElementById('ai-segment').value;
+            const framework = document.getElementById('ai-email-framework').value;
+            const output = document.getElementById('email-output');
+            const btn = document.getElementById('email-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Writing...`;
+            output.innerHTML = "Applying direct response formula...";
+
+            const prompt = `Write a world-class, direct-response email using the strictly structured "${framework}" formula. 
+            Target audience: The CRM segment "${segment}" for our HVAC company in Florence, SC.
+            If Active Members: Pitch a free Home Energy Check to secure rebates.
+            If High-Value: Pitch a premium indoor air quality (IAQ) upgrade.
+            If Demand-Only: Pitch converting to a maintenance membership to avoid future emergency fees.
+            Include a compelling Subject Line in bold. Use short, punchy sentences. Format in HTML.`;
+
+            try {
+                const result = await callGemini(prompt, elitePersona);
+                output.innerHTML = result;
+            } catch (err) {
+                output.innerHTML = "Error generating email copy.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Draft ✨ DR Email";
+            }
+        }
+
+        // Tool 5: Nextdoor Ground Game
+        async function generateNextdoorPost() {
+            const topic = document.getElementById('ai-nextdoor-topic').value;
+            const neighbor = document.getElementById('ai-neighbor').value || "Florence";
+            const output = document.getElementById('nextdoor-output');
+            const btn = document.getElementById('nextdoor-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Drafting...`;
+            output.innerHTML = "Drafting neighborly post...";
+
+            const prompt = `Write a highly engaging, non-salesy Nextdoor post for the "${neighbor}" neighborhood in Florence, SC about "${topic}". 
+            Position "First Choice Heating & Air" as helpful, deeply local experts. 
+            The goal is to generate organic comments and direct messages, not to look like a corporate ad. End with a friendly, open question to neighbors. Format in HTML.`;
+
+            try {
+                const result = await callGemini(prompt, "You are a master of community-led, grassroots marketing.");
+                output.innerHTML = result;
+            } catch (err) {
+                output.innerHTML = "Error generating post. Please try again.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Draft ✨ Nextdoor Post";
+            }
+        }
+
+        // Tool 6: Identity Brainstormer
+        async function brainstormBrand() {
+            const output = document.getElementById('brand-output');
+            const btn = document.getElementById('brand-btn');
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Brainstorming...`;
+            output.innerHTML = "Consulting branding experts...";
+
+            const prompt = `Our company is "First Choice Heating & Air". We are expanding to Florence, SC. 
+            There is a dangerous competitor already there named "1st Choice Quality". 
+            Brainstorm 7 unique, highly premium sub-brands or DBAs that retain our heritage but clearly differentiate us. 
+            Consider names that emphasize our local family ownership or Lennox Centurion status. Output as an HTML bulleted list with a 1-sentence explanation for why each works.`;
+
+            try {
+                const result = await callGemini(prompt, "You are an elite brand strategist and naming architect.");
+                output.innerHTML = result;
+            } catch (err) {
+                output.innerHTML = "Error brainstorming. Try again in a moment.";
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Brainstorm ✨ Names";
+            }
+        }
+
+        // Existing UI Functions
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Charts
+        window.onload = function() {
+            const utilityCtx = document.getElementById('utilityChart').getContext('2d');
+            new Chart(utilityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['National', 'SC', 'Florence'],
+                    datasets: [{
+                        label: 'Bill ($)',
+                        data: [144, 155, 174],
+                        backgroundColor: ['#e5e7eb', '#d1d5db', '#ef4444'],
+                        borderRadius: 4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            const housingCtx = document.getElementById('housingChart').getContext('2d');
+            new Chart(housingCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1940s', '1960s', '1980s', '2000s', '2020s'],
+                    datasets: [{
+                        label: 'Volume',
+                        data: [15, 25, 40, 15, 5],
+                        fill: true,
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderColor: '#3b82f6',
+                        tension: 0.4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            const segCtx = document.getElementById('segmentationChart').getContext('2d');
+            new Chart(segCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Install', 'Member', 'PPC', 'Zero', 'Other'],
+                    datasets: [{
+                        data: [20.6, 25.2, 21.8, 9.5, 22.9],
+                        backgroundColor: ['#eab308', '#22c55e', '#ef4444', '#9ca3af', '#e5e7eb']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+    </script>
+</body>
+</html>
