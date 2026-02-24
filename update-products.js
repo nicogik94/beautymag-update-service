@@ -12,6 +12,7 @@ import OpenAI from "openai";
 const app = express();
 app.use(fileUpload());
 app.use(express.json());
+app.use(express.static(path.join(process.cwd(), "public")));
 
 const PAYLOAD_PATH = path.join(process.cwd(), "PRODUCTS_PAYLOAD.json");
 
